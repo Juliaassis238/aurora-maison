@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!--
+    ============================================================
+    AURORA MAISON — Premium Fashion Brand
+    Projeto desenvolvido por Júlia Ágata de Assis
+    ============================================================
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora Maison — Luxury Fashion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --white: #fefefe;
+      --off-white: #f9f6f2;
+      --beige: #ede8e0;
+      --beige-dark: #d8d0c4;
+      --gold: #b8965a;
+      --gold-light: #d4ae78;
+      --black: #111010;
+      --charcoal: #1c1b1a;
+      --gray: #888078;
+      --gray-light: #c8c0b8;
+      --font-serif: 'EB Garamond', serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: var(--off-white); color: var(--charcoal); overflow-x: hidden; }
+
+    /* TOP BAR */
+    .top-bar {
+      background: var(--charcoal); padding: 0.6rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .top-bar p { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .top-bar span { color: var(--gold-light); }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 1000;
+      background: var(--white);
+      padding: 1.2rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--beige);
+      transition: var(--transition);
+    }
+    .navbar.floating {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(254,254,254,0.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--beige);
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem; font-weight: 400;
+      letter-spacing: 0.25em; color: var(--charcoal);
+      text-decoration: none;
+    }
+    .logo em { font-style: italic; color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
+      color: var(--gray); text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--charcoal); }
+    .nav-actions { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-icon-btn {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gray); text-decoration: none; transition: color 0.3s; background: none; border: none; cursor: pointer;
+    }
+    .nav-icon-btn:hover { color: var(--gold); }
+    .nav-shop {
+      padding: 0.6rem 1.8rem;
+      background: var(--charcoal); color: var(--white) !important;
+      font-size: 0.6rem !important; letter-spacing: 0.2em;
+      transition: var(--transition) !important;
+    }
+    .nav-shop:hover { background: var(--gold) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; }
+    .hamburger span { width: 20px; height: 1px; background: var(--charcoal); display: block; }
+
+    /* HERO EDITORIAL */
+    .hero {
+      height: calc(100vh - 80px);
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      overflow: hidden;
+    }
+    .hero-text-col {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem;
+      background: var(--off-white);
+      position: relative;
+    }
+    .hero-season {
+      font-size: 0.6rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 400; line-height: 1;
+      color: var(--charcoal);
+      opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); display: block; }
+    .hero-desc {
+      font-size: 0.8rem; font-weight: 300; letter-spacing: 0.05em;
+      color: var(--gray); line-height: 1.9; max-width: 320px; margin: 2rem 0;
+      opacity: 0; animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1.2rem; align-items: center;
+      opacity: 0; animation: fadeUp 0.7s ease 0.8s forwards;
+    }
+    .btn-dark {
+      display: inline-block; padding: 0.9rem 2.5rem;
+      background: var(--charcoal); color: var(--white);
+      font-size: 0.62rem; font-weight: 400; letter-spacing: 0.25em;
+      text-transform: uppercase; text-decoration: none;
+      transition: var(--transition); border: none; cursor: pointer;
+    }
+    .btn-dark:hover { background: var(--gold); }
+    .btn-link {
+      font-size: 0.62rem; font-weight: 400; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gray); text-decoration: none;
+      border-bottom: 1px solid var(--gray-light); padding-bottom: 2px;
+      transition: var(--transition);
+    }
+    .btn-link:hover { color: var(--charcoal); border-color: var(--charcoal); }
+    .hero-editorial-note {
+      position: absolute; bottom: 3rem; left: 4rem;
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 0.85rem; color: var(--beige-dark); letter-spacing: 0.05em;
+    }
+
+    .hero-img-col { position: relative; overflow: hidden; }
+    .hero-img-main {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      object-position: center top;
+      transition: transform 8s ease-out;
+    }
+    .hero-img-main.loaded { transform: scale(1.03); }
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, var(--off-white) 0%, transparent 20%);
+    }
+    .hero-img-label {
+      position: absolute; bottom: 3rem; right: 3rem;
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* COLEÇÕES */
+    .section-collections {
+      padding: 7rem 4rem;
+    }
+    .collections-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 4rem; max-width: 1400px; margin-left: auto; margin-right: auto;
+    }
+    .col-label { font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.6rem; }
+    .section-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; color: var(--charcoal); }
+    .section-title em { font-style: italic; }
+    .collections-grid {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.3fr 1fr 1fr;
+      grid-template-rows: auto auto; gap: 3px;
+    }
+    .coll-item {
+      position: relative; overflow: hidden;
+    }
+    .coll-item.large { grid-row: 1 / 3; }
+    .coll-img {
+      width: 100%; height: 100%; min-height: 360px;
+      object-fit: cover; display: block;
+      transition: transform 0.7s ease;
+      filter: contrast(1.05);
+    }
+    .coll-item:hover .coll-img { transform: scale(1.05); }
+    .coll-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2.5rem 2rem;
+      background: linear-gradient(to top, rgba(17,16,16,0.8) 0%, transparent 100%);
+      transform: translateY(20px); opacity: 0;
+      transition: var(--transition);
+    }
+    .coll-item:hover .coll-info { transform: translateY(0); opacity: 1; }
+    .coll-season { font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.4rem; }
+    .coll-name { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 400; font-style: italic; color: var(--white); }
+
+    /* LOOKBOOK */
+    .section-lookbook {
+      padding: 7rem 4rem;
+      background: var(--charcoal);
+    }
+    .lookbook-header { max-width: 1400px; margin: 0 auto 4rem; }
+    .lookbook-header .section-title { color: var(--white); }
+    .lookbook-header .section-title em { color: var(--gold-light); }
+    .lookbook-header .col-label { color: var(--gold-light); opacity: 0.7; }
+    .lookbook-row {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    }
+    .look-item { position: relative; overflow: hidden; }
+    .look-img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; transition: transform 0.5s ease; filter: grayscale(20%); }
+    .look-item:hover .look-img { transform: scale(1.06); filter: grayscale(0%); }
+    .look-overlay {
+      position: absolute; inset: 0;
+      background: rgba(17,16,16,0); transition: background 0.4s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .look-item:hover .look-overlay { background: rgba(17,16,16,0.4); }
+    .look-label {
+      font-family: var(--font-serif); font-style: italic; font-size: 0.9rem;
+      color: var(--white); opacity: 0; transform: translateY(8px); transition: var(--transition);
+    }
+    .look-item:hover .look-label { opacity: 1; transform: translateY(0); }
+
+    /* EDITORIAL */
+    .section-editorial {
+      padding: 8rem 4rem;
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center;
+    }
+    .editorial-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+    .editorial-text { }
+    .editorial-text .col-label { margin-bottom: 1rem; display: block; }
+    .editorial-title { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; line-height: 1.2; color: var(--charcoal); margin-bottom: 1.5rem; }
+    .editorial-title em { font-style: italic; color: var(--gold); }
+    .editorial-body { font-size: 0.85rem; font-weight: 300; color: var(--gray); line-height: 2; margin-bottom: 2rem; }
+    .editorial-quote {
+      border-left: 2px solid var(--gold); padding-left: 1.5rem;
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 1.1rem; color: var(--charcoal); line-height: 1.7;
+      margin: 2rem 0;
+    }
+
+    /* NEWSLETTER */
+    .section-newsletter {
+      padding: 7rem 4rem;
+      background: var(--beige);
+      text-align: center;
+    }
+    .newsletter-inner { max-width: 560px; margin: 0 auto; }
+    .newsletter-title { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.2; color: var(--charcoal); margin-bottom: 1rem; }
+    .newsletter-title em { font-style: italic; color: var(--gold); }
+    .newsletter-sub { font-size: 0.8rem; font-weight: 300; color: var(--gray); line-height: 1.8; margin-bottom: 2.5rem; }
+    .newsletter-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto; }
+    .newsletter-input {
+      flex: 1; padding: 1rem 1.5rem;
+      border: 1px solid var(--beige-dark); border-right: none;
+      background: var(--white); font-family: var(--font-sans);
+      font-size: 0.8rem; color: var(--charcoal); outline: none;
+    }
+    .newsletter-input::placeholder { color: var(--gray-light); }
+    .newsletter-btn { padding: 1rem 2rem; background: var(--charcoal); color: var(--white); border: none; font-family: var(--font-sans); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+    .newsletter-btn:hover { background: var(--gold); }
+
+    /* FOOTER */
+    footer { background: var(--black); padding: 5rem 4rem 3rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2.5rem; }
+    .footer-brand .logo { color: var(--white); display: block; margin-bottom: 1.2rem; }
+    .footer-brand p { font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.9; max-width: 260px; }
+    .footer-col h4 { font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.7rem; }
+    .footer-col li a { font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s; }
+    .footer-col li a:hover { color: var(--gold-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.2); }
+    .footer-dev { font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.2); }
+    .footer-dev span { color: var(--gold); }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(35px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+    .reveal-delay-4 { transition-delay: 0.48s; }
+
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--off-white); z-index: 999; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--font-serif); font-style: italic; font-size: 2.5rem; font-weight: 400; color: var(--charcoal); text-decoration: none; transition: color 0.3s; }
+    .mobile-menu a:hover { color: var(--gold); }
+    .menu-close-btn { position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--gray); font-size: 1.5rem; cursor: pointer; }
+
+    @media (max-width: 1100px) {
+      .top-bar { display: none; }
+      .navbar { padding: 1rem 2rem; }
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+      .hero { grid-template-columns: 1fr; height: auto; }
+      .hero-img-col { height: 60vw; }
+      .hero-text-col { padding: 4rem 2rem; }
+      .section-collections, .section-lookbook, .section-editorial, .section-newsletter, footer { padding-left: 2rem; padding-right: 2rem; }
+      .collections-grid { grid-template-columns: 1fr 1fr; }
+      .coll-item.large { grid-row: auto; }
+      .lookbook-row { grid-template-columns: repeat(3, 1fr); }
+      .section-editorial { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .collections-grid { grid-template-columns: 1fr; }
+      .lookbook-row { grid-template-columns: repeat(2, 1fr); }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid var(--beige-dark); border-bottom: none; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <p>Frete grátis para compras acima de R$ 500 <span>—</span> Coleção Verão 2025 disponível</p>
+    <p>Atendimento: <span>contato@auroramaison.com.br</span></p>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <a href="#" class="logo">Aurora <em>Maison</em></a>
+    <ul class="nav-links">
+      <li><a href="#colecoes">Coleções</a></li>
+      <li><a href="#lookbook">Lookbook</a></li>
+      <li><a href="#editorial">Editorial</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn">Buscar</button>
+      <button class="nav-icon-btn">Conta</button>
+      <a href="#" class="nav-icon-btn nav-shop">Loja</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="menu-close-btn" id="menuClose">&#x2715;</button>
+    <a href="#colecoes" class="menu-link">Coleções</a>
+    <a href="#lookbook" class="menu-link">Lookbook</a>
+    <a href="#editorial" class="menu-link">Editorial</a>
+    <a href="#newsletter" class="menu-link">Newsletter</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text-col">
+      <p class="hero-season">Coleção Verão 2025 — Aurora Maison</p>
+      <h1 class="hero-title">
+        Elegance<br>is an <em>attitude.</em>
+      </h1>
+      <p class="hero-desc">
+        Peças que transcendem estações. Cada criação Aurora Maison nasce de um olhar atento à elegância atemporal e aos tecidos mais nobres do mundo.
+      </p>
+      <div class="hero-actions">
+        <a href="#colecoes" class="btn-dark">Explorar Coleção</a>
+        <a href="#lookbook" class="btn-link">Ver Lookbook</a>
+      </div>
+      <p class="hero-editorial-note">"A moda passa, o estilo permanece."</p>
+    </div>
+    <div class="hero-img-col">
+      <img class="hero-img-main" id="heroImg" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1200&q=90" alt="Aurora Maison Collection" />
+      <div class="hero-img-overlay"></div>
+      <span class="hero-img-label">SS25 — Aurora Maison</span>
+    </div>
+  </section>
+
+  <!-- COLEÇÕES -->
+  <section class="section-collections" id="colecoes">
+    <div class="collections-header">
+      <div>
+        <span class="col-label">Nossas Coleções</span>
+        <h2 class="section-title reveal">Peças <em>Atemporais</em></h2>
+      </div>
+      <a href="#" class="btn-dark">Ver Todas</a>
+    </div>
+    <div class="collections-grid">
+      <div class="coll-item large reveal">
+        <img class="coll-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85" alt="Collection 1" />
+        <div class="coll-info"><div class="coll-season">Verão 2025</div><div class="coll-name">Ivory Dreams</div></div>
+      </div>
+      <div class="coll-item reveal reveal-delay-1">
+        <img class="coll-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=85" alt="Collection 2" />
+        <div class="coll-info"><div class="coll-season">Cápsula 2025</div><div class="coll-name">Golden Hours</div></div>
+      </div>
+      <div class="coll-item reveal reveal-delay-2">
+        <img class="coll-img" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=85" alt="Collection 3" />
+        <div class="coll-info"><div class="coll-season">Inverno 2025</div><div class="coll-name">Noir Étude</div></div>
+      </div>
+      <div class="coll-item reveal reveal-delay-1">
+        <img class="coll-img" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85" alt="Collection 4" />
+        <div class="coll-info"><div class="coll-season">Resort 2025</div><div class="coll-name">Côte d'Or</div></div>
+      </div>
+      <div class="coll-item reveal reveal-delay-2">
+        <img class="coll-img" src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=85" alt="Collection 5" />
+        <div class="coll-info"><div class="coll-season">Exclusiva</div><div class="coll-name">Velvet Edit</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <section class="section-lookbook" id="lookbook">
+    <div class="lookbook-header">
+      <span class="col-label">SS25 Lookbook</span>
+      <h2 class="section-title reveal">Inspirações da <em>Estação</em></h2>
+    </div>
+    <div class="lookbook-row">
+      <div class="look-item reveal"><img class="look-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=85" alt="Look 1"/><div class="look-overlay"><span class="look-label">Look 01</span></div></div>
+      <div class="look-item reveal reveal-delay-1"><img class="look-img" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=85" alt="Look 2"/><div class="look-overlay"><span class="look-label">Look 02</span></div></div>
+      <div class="look-item reveal reveal-delay-2"><img class="look-img" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=85" alt="Look 3"/><div class="look-overlay"><span class="look-label">Look 03</span></div></div>
+      <div class="look-item reveal reveal-delay-3"><img class="look-img" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=85" alt="Look 4"/><div class="look-overlay"><span class="look-label">Look 04</span></div></div>
+      <div class="look-item reveal reveal-delay-4"><img class="look-img" src="https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=400&q=85" alt="Look 5"/><div class="look-overlay"><span class="look-label">Look 05</span></div></div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL -->
+  <section id="editorial">
+    <div class="section-editorial">
+      <div class="reveal">
+        <img class="editorial-img" src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=800&q=85" alt="Aurora Maison Editorial" />
+      </div>
+      <div class="editorial-text reveal reveal-delay-2">
+        <span class="col-label">Nossa Filosofia</span>
+        <h2 class="editorial-title">Moda como <em>expressão</em> de identidade.</h2>
+        <p class="editorial-body">
+          Aurora Maison nasceu da convicção de que a moda vai além da roupa: é uma linguagem, uma declaração silenciosa de quem você é e aspira ser.
+        </p>
+        <div class="editorial-quote">
+          "Vestuário não é adereço. É arquitetura em movimento, escultura viva que conta histórias sem palavras."
+        </div>
+        <p class="editorial-body">
+          Cada peça é criada com tecidos selecionados de fornecedores italianos e franceses, com atenção artesanal a cada costura, cada detalhe e cada acabamento.
+        </p>
+        <a href="#colecoes" class="btn-dark">Descobrir a Marca</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section-newsletter" id="newsletter">
+    <div class="newsletter-inner reveal">
+      <span class="col-label" style="display:block; text-align:center; margin-bottom:1rem;">Exclusividade</span>
+      <h2 class="newsletter-title">Entre no universo <em>Aurora.</em></h2>
+      <p class="newsletter-sub">Receba em primeira mão os lançamentos, edições limitadas e conteúdo editorial exclusivo direto no seu e-mail.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input class="newsletter-input" type="email" placeholder="Seu endereço de e-mail" />
+        <button class="newsletter-btn" type="submit">Inscrever</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">Aurora <em>Maison</em></a>
+        <p>Moda de alto padrão criada para mulheres que valorizam elegância, autenticidade e excelência artesanal.</p>
+      </div>
+      <div class="footer-col"><h4>Coleções</h4><ul><li><a href="#">Ivory Dreams</a></li><li><a href="#">Golden Hours</a></li><li><a href="#">Noir Étude</a></li><li><a href="#">Novas Chegadas</a></li></ul></div>
+      <div class="footer-col"><h4>Aurora</h4><ul><li><a href="#">Nossa História</a></li><li><a href="#">Sustentabilidade</a></li><li><a href="#">Atelier</a></li><li><a href="#">Contato</a></li></ul></div>
+      <div class="footer-col"><h4>Atendimento</h4><ul><li><a href="#">Troca & Devolução</a></li><li><a href="#">Guia de Tamanhos</a></li><li><a href="#">Frete & Entrega</a></li><li><a href="#">FAQ</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2024 Aurora Maison. Todos os direitos reservados.</p>
+      <p class="footer-dev">Projeto desenvolvido por <span>Júlia Ágata de Assis</span></p>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('floating', window.scrollY > 100);
+    });
+    document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+    document.getElementById('menuClose').addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+    document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open')));
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    setTimeout(() => document.getElementById('heroImg')?.classList.add('loaded'), 300);
+  </script>
+</body>
+</html>
